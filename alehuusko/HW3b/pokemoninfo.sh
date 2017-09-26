@@ -37,8 +37,7 @@ if  [[ $# -eq 0 ]]; then
     exit 1;
 fi
 
-if [ -z "$1" ]
-  then
+if [ -z "$1" ]; then
     echo "Empty argument!"
     exit 1;
 fi
