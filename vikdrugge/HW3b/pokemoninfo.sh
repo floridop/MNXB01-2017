@@ -21,7 +21,6 @@ DBDIR=$1
 # use this function to show an error message with usage information.
 errormsg() {
    echo "Usage: $1"
-   #echo "$0 <directory>"
    echo "$0 $2"
    echo "directory must be a path containing a csv dataset."	
 }
@@ -32,9 +31,9 @@ errormsg() {
 # and directory existence.
 
 # YOUR CODE HERE
-#Double [[ ]] for arithmetic expressions, $# number of arguments
-if [[ $# == 0  ]]; then
-    errormsg "Not enough arguments" "$(pwd)";
+#Double brackets (( )) for arithmetic expressions, $# number of arguments
+if (( $# == 0  )); then
+    errormsg "Input argument" "$(pwd)";
     exit 1;
 fi
 
@@ -57,7 +56,7 @@ fi
 echo -e "\nSearching for Pokémon Red..."
 
 # YOUR CODE HERE
-#use read all files recursively in supplied directory (short notation for "-d recurse")
+#use read all files recursively in supplied directory (short notation: -r equivalent to "-d recurse")
 grep -r "Pokémon Red Version" "$DBDIR"
 
 
@@ -67,7 +66,7 @@ echo -e "\nRemoving old allplatforms.csv"
 
 # YOUR CODE HERE
 #$(<command>) executes command inside parenthesis and returns the output.
-#[ $(<command>) ] returns exit status depending on 
+#[ $(<command>) ] returns exit status depending on success of output.
 if [ $(find . -name allplatforms.csv) ]; then
     rm $(find . -name allplatforms.csv);
 else
@@ -89,11 +88,12 @@ echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
 # {} brackets make it easier to spot variable start and end.
-# ${<directory>}/* expands directory to a list of all sub files.
+# ${<directory>}/* expands directory variable to a list of all sub files.
 for file in ${DBDIR}/*; do
-    #check if output is given
+    #check if $file has more than 1 row, i.e check for game(s) in file.
     if [ "$(tail -n +2 $file)" ];  then
-	# tail -n +K: read from line +K till end of file
+	# tail -n +K: read from line +K till end of file.
+	# print output to allplatforms.csv in current directory of script.
 	echo "$(tail -n +2 $file)" >> allplatforms.csv;
     fi
 done
@@ -129,9 +129,10 @@ echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
 
-#GAMES variable assigned from output of pipe $(<command X>|<command using X output>)
 for file in ${DBDIR}/*; do
+    #GAMES variable assigned from output of pipe $(<command X>|<command using X output>).
     GAMES=$(tail -n +2 $file | wc -l);
+    #Print basename i.e end of file name to screen.
     echo "$(basename $file) has $GAMES game(s)";
 done
 
