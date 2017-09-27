@@ -94,7 +94,7 @@ for file in ${DBDIR}/*; do
     #check if output is given
     if [ "$(tail -n +2 $file)" ];  then
 	# tail -n +K: read from line +K till end of file
-	echo "$(tail -n +2 $file)" >> ./result/allplatforms.csv;
+	echo "$(tail -n +2 $file)" >> allplatforms.csv;
     fi
 done
 
@@ -106,6 +106,7 @@ done
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
 #sort -t <delimiter> -k <kolumn X>,<kolumn Y> -o <output file>
+#Uses delimiter comma to determine new kolumns and sort by column 2.
 sort -t \, -k 2 -o allplatforms.ordered.csv $(find . -name allplatforms.csv)
 
 
@@ -127,10 +128,11 @@ sort -t \, -k 2 -o allplatforms.ordered.csv $(find . -name allplatforms.csv)
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
+
+#GAMES variable assigned from output of pipe $(<command X>|<command using X output>)
 for file in ${DBDIR}/*; do
-    VAR=$(tail -n +2 $file);
-    GAMES=$(tail -n +2 $file) | $(wc -l < $1);
-    echo -e "$(basename $file) has $GAMES game(s)";
+    GAMES=$(tail -n +2 $file | wc -l);
+    echo "$(basename $file) has $GAMES game(s)";
 done
 
 exit 0;
