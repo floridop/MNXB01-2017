@@ -33,6 +33,7 @@ errormsg() {
 # YOUR CODE HERE
 if [ ! $DBDIR ]; then
 	echo "You need to have at least one argument!" ;
+	#If the argument is empty or no command line exists, this error message will be shown.
 	# Exit with error, not zero
 	exit 1;
 fi
@@ -44,10 +45,11 @@ fi
 echo "This scripts checks the existance of the DBDIR directory."
 echo "Checking..."
 if [ ! -d $DBDIR ]
+#! is command for NOT, -d specifies a directory 
 	then
 		echo "$DBDIR does not  exist or is not a directory!"
-		# Exit with error, zero
-		exit 0;
+		# Exit with error, not zero
+		exit 1;
 	
 fi
 
@@ -59,6 +61,7 @@ fi
 echo -e "\nSearching for Pokémon Red..."
 
 grep -nr --include=*.csv "Pokémon Red Version" $DBDIR
+#This line reads inside all the csv files and returns the line number plus information about the files.
 
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
@@ -66,7 +69,19 @@ echo -e "\nRemoving old allplatforms.csv"
 # YOUR CODE HERE
 if [ -e ./allplatforms.csv ]; 
 	then rm ./allplatforms.csv 
+	#This line deletes allplatforms.csv files that exist
 fi
+
+echo -e "\nRemoving old allplatforms.ordered.csv"
+
+#Everytime the code is executed, more and more allplatforms.ordered.csv file are created. 
+#Therefore, the code below deletes them everytime.
+if [ -e ./allplatforms.ordered.csv ]; 
+	then rm ./allplatforms.ordered.csv 
+	#This line deletes allplatforms.ordered.csv files that exist
+fi
+
+### 
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -83,9 +98,12 @@ echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
 Outfiles="allplatforms.csv"
-
+#Creating a variable
 for files in $DBDIR/*.csv ; do
 	tail -n +2 $files >> $Outfiles
+#The for loop reads through the files in the directory,
+# removes the header lines, uses information from the second row onwards
+# and directs them to the single file with Outfiles as a variable.
 done	
 
 ### Exercise 6: 1 point
@@ -98,6 +116,9 @@ echo -e "\nSorting allplatforms.csv..."
 Alfabetical="allplatforms.ordered.csv"
 
 sort -k2 -d ./allplatforms.csv >> $Alfabetical
+#This command takes the content in allplatforms.csv and sorts them in alfabetical order. 
+#Since the names are on the second column, -k2 tells it to skip the first column and 
+#sort the second one alfabetically.
 
 # Exercise 7: 4 points
 # Write a for loop that, for each file, counts all the games
@@ -120,9 +141,11 @@ echo -e "\nCalculating number of games for each file..."
 
 for files in $DBDIR/*.csv ; do
 	gamenum="$(tail -n +2 $files | wc -l)"
+#Counts the lines in the files excluding the header and gives back the number of games.
 	filename=$(basename "$files")
+#Takes away the directory path from the file names and only gives back the name of the file.
 	echo "$filename has $gamenum games"
-	
+#Calling the filename and the number of games.	
 done
 
 exit 0;
