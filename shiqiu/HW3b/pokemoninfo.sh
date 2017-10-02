@@ -95,6 +95,7 @@ echo -e "\nCreating new allplatforms.csv"
 for data in "$DBDIR"/*.csv; do
 tail -n +2 $data >> allplatforms.csv
 done
+echo "new allplatforms.csv successfully created"
 
 ### Exercise 4: 1 point
 # Sort the contents of the allplatforms.csv file by using the sort 
@@ -102,7 +103,8 @@ done
 # Hint: use \" as a delimiter for sort. Check 'man sort'
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
-
+rm allplatforms.ordered.csv
+sort -t" " -k2,2 allplatforms.csv >> allplatforms.ordered.csv
 
 # Exercise 5: 4 points
 # Write a for loop that, for each file, counts all the games
