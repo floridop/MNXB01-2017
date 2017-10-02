@@ -104,7 +104,7 @@ echo "new allplatforms.csv successfully created"
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
 rm allplatforms.ordered.csv
-sort -t" " -k2,2 allplatforms.csv >> allplatforms.ordered.csv
+sort -t, -k2 allplatforms.csv >> allplatforms.ordered.csv
 
 # Exercise 5: 4 points
 # Write a for loop that, for each file, counts all the games
@@ -124,5 +124,8 @@ sort -t" " -k2,2 allplatforms.csv >> allplatforms.ordered.csv
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
-
+for data in "$DBDIR"/*.csv; do
+a="$(tail -n +2 $data | wc -l )"
+echo -e "$(basename "$data") has $a game(s)\n" 
+done
 exit 0;
