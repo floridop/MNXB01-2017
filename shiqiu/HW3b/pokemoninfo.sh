@@ -69,7 +69,8 @@ grep -H -r -n --color 'Pokémon Red Version' $DBDIR/*.csv
 echo -e "\nRemoving old allplatforms.csv"
 # YOUR CODE HERE
 
-# we delete "allplatforms.csv" in the current directory where the code runs
+# Delete "allplatforms.csv" in the current directory where the code runs
+# Test if allplatforms.csv exists in the current directory
 if [ -e allplatforms.csv ]; then
     rm allplatforms.csv
     echo "allplatforms.csv has been removed"
@@ -93,9 +94,10 @@ echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
 for data in "$DBDIR"/*.csv; do
+# Use tail to remove the first row
 tail -n +2 $data >> allplatforms.csv
 done
-echo "new allplatforms.csv successfully created"
+echo "New allplatforms.csv successfully created"
 
 ### Exercise 4: 1 point
 # Sort the contents of the allplatforms.csv file by using the sort 
@@ -103,7 +105,10 @@ echo "new allplatforms.csv successfully created"
 # Hint: use \" as a delimiter for sort. Check 'man sort'
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
+# Remove potentially pre-existing allplatforms.ordered.csv
 rm allplatforms.ordered.csv
+# Sort the csv based on the second collumn, denoted by -k2, and set the field 
+# separater as "," using "-t,". The default sorting is based on alphabetical order.
 sort -t, -k2 allplatforms.csv >> allplatforms.ordered.csv
 
 # Exercise 5: 4 points
@@ -124,8 +129,12 @@ sort -t, -k2 allplatforms.csv >> allplatforms.ordered.csv
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
+# Iterate through each csv file in the DBDIR
 for data in "$DBDIR"/*.csv; do
-a="$(tail -n +2 $data | wc -l )"
-echo -e "$(basename "$data") has $a game(s)\n" 
+# Use tail to cut the first row and then use wc -l to count the number of lines/rows. 
+# Pass the result to variable NofGames.
+NofGames="$(tail -n +2 $data | wc -l )"
+# Output results 
+echo -e "$(basename "$data") has $NofGames game(s)\n" 
 done
 exit 0;
