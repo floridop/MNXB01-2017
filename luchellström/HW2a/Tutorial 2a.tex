@@ -1,0 +1,108 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish,english]{babel}
+\usepackage{polynom}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{subfig}
+\usepackage{csquotes}
+\usepackage{eso-pic}
+\usepackage{siunitx}
+
+\title{Tutorial 2a exercise paper}
+\author{Lucas Hellström}
+\date{13/9 - 2017}
+
+\AddToShipoutPicture{%
+  \AtPageUpperLeft{%
+    \hspace*{20pt}\makebox(200,-20)[lt]{%
+      \footnotesize%
+      \textbf{Lucas Hellström - 950905-0655}%
+}}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+	\texttt{nat14lhe@student.lu.se}
+\end{center}
+
+\section{Introduction}
+\label{sec:intro}
+
+This is the introduction. Summary will be given in Section \ref{sec:sum}
+
+\section{About Linux}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.25\textwidth]{Tux.png}
+		\caption{Penguin symbolises Linux}
+		\label{fig:penguin}
+	\end{figure}
+
+	Figure \ref{fig:penguin} shows a \textit{penguin}. For more details, check the Linux Web page ~\cite{linux}
+	
+	\subsection{Linux flavours}
+	\label{sec:flavours}
+		Table ~\ref{tab:flavours} lists some Linux flavours~\footnote{Only one is shown for simplicity}.
+	\begin{table}[h]
+		\begin{center}
+			\begin{tabular}{cccc} \toprule[1.5pt]
+				\textbf{Distribution}&RedHat&Debian&SuSe\\ \midrule
+				Fedora 23 & X & & \\ \bottomrule[1.5pt]
+			\end{tabular}
+			\caption{Different flavours of Linux}
+			\label{tab:flavours}
+		\end{center}
+	\end{table}
+
+\section{About mathematics}
+\label{sec:math}
+
+	In-line math in \LaTeX \ is enclosed in \$ symbols. Backslash \textbackslash \ is used to denote special symbols.
+
+	Subscripts and superscripts are always math: $A_x$, $A_{xy}$, $e^x$ and $e^{x^2}$. Using underscore \_ outside math without \textbackslash \ causes big\_trouble.
+
+	All special symbols are also math: $\alpha,\; \beta,\; \gamma,\; \delta,\; \sin x,\; \hbar,\; \lambda,\; \ldots$ More information can be found in Ref.~\cite{latex}
+
+	Equation ~\ref{eq:chi2} shows $\chi^2$.
+
+	\begin{equation}
+	\label{eq:chi2}
+		\chi^2 = \sum_i \left(\frac{F_i-D_i}{\sigma_i}\right)^2
+	\end{equation}
+
+\section{Summary}
+\label{sec:sum}
+
+	We learned the following: 
+
+	\begin{itemize}
+		\item Linux is good
+		\item \LaTeX \ is good
+		\begin{enumerate}
+			\item Structuring documents
+			\item Writing mathematical equations
+		\end{enumerate}
+	\end{itemize}
+
+	We can also write unformatted text using the \texttt{verbatim} environment, but sometimes we have to specify this in the preamble:
+	
+	\begin{verbatim}
+	\usepackage{verbatim}
+	\end{verbatim}
+
+\begin{thebibliography}{99}
+	\bibitem{linux} Linux web site: \url{www.linux.com}
+	\bibitem{latex} Leslie Lamport, \textit{LaTeX: A Document Preparation System}, second edition, Addison-Wesley (1994)
+\end{thebibliography}
+
+\end{document}
