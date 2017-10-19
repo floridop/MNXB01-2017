@@ -9,7 +9,6 @@
 #
 ########################################################################
 
-
 # The script must take in input as an argument the directory where the 
 # database is stored.
 # for example:
@@ -17,7 +16,6 @@
 # note that the name 'dataset' should not be hardcoded. It can be any directory
 # name. Make sure to read slides 33,34,39 
 # Store the folder name in a variable called DBDIR.
-
 DBDIR=$1
 
 # use this function to show an error message with usage information.
@@ -28,7 +26,6 @@ errormsg() {
 }
 
 ### Exercise 1: 1 points
-
 # Write an error and exit if no command line argument exists or if the argument
 # is empty (it could be a variable!)
 # hint: use the if construct and the proper conditions to verify the arguments
