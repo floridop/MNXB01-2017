@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt,twoside]{article}
+
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+%\usepackage{babel}
+\usepackage{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath}%I also use this maths package to demonstrate matrix
+\usepackage[pdftex]{hyperref}
+
+\author{Shi Qiu}
+\title{Tutorial 2a exercise paper}
+\date{09/14/17}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+ \href{mailto:sh4722qi-s@student.lu.se}{\texttt{sh4722qi-s@student.lu.se}}
+\end{center}
+\tableofcontents
+\newpage
+\section{Introduction}\label{sec:intro}
+This in introduction. Summary will be given in Section \ref{sec:sum}.
+
+\section{About Linux}
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics[scale=.15,trim=0cm 0cm 0 0]{penguin.png}
+  \caption{This is a penguin!}
+  \label{fig:penguin}
+ \end{center}
+\end{figure}
+
+
+Figure \ref{fig:penguin} shows a \textit{king penguin}. For more details, check the Linux web page~\cite{linux}.
+
+\subsection{Linux flavours}
+Table~\ref{tab:flavours} lists some linux flavours~\footnote{Only one is shown for simplicity}.
+\begin{table}[ht]\label{tab:flavours}
+ \begin{center}
+  \begin{tabular}{c||c|c|c}
+   \hline
+   \textbf{Distribution}&RedHat&Debian&SuSE\\ \hline\hline
+   Fedora 20            & x    & y    & z  \\ \hline
+  \end{tabular}
+  \caption{Different flavours of Linux}
+ \end{center}
+\end{table}
+
+\section{About mathematics}\label{sec:math}
+
+In-line math in \LaTeX \ is enclosed in \$ symbols. Backslash \textbackslash \ is used to denote special symbols.
+
+Subscripts and superscripts are always math: $A_x$, $A_{xy}$, $e^x$ and $e^{x^2}$. Using underscore \_ outside math without \textbackslash \ causes big\_troubles. 
+
+All special symbols are also math: $\alpha$, $\beta$, $\gamma$, $\delta$, $\sin x$, $\hbar$, $\lambda$, $ldots$. More information can be found in Ref.~\cite{latex}.
+
+Equation \ref{eq:chi2} shows $\chi^2$:
+\begin{equation}\label{eq:chi2}
+ \chi^2=\sum\limits_i \left(\frac{F_i-D_i}{\sigma_i}\right)^2
+\end{equation}
+
+We can also create a matrix
+\begin{align}
+ X = \begin{pmatrix}
+     1 & x_1^{(1)} & x_2^{(1)}  & x_3^{(1)} \dots \\
+     1 & x_1^{(2)} & x_2^{(2)}  & x_3^{(2)} \dots \\
+     \vdots 
+     \end{pmatrix}
+\end{align}
+
+To define a step function, we can do it like this
+\begin{align}
+ f(x)=\begin{cases}
+       x+1  & y < 1
+       \\
+       -x+1 & y > 0
+      \end{cases}
+\end{align}
+
+\section{Summary}\label{sec:sum}
+We learned the following:
+\begin{itemize}
+ \item Linux is good
+ \item \LaTeX \ is good for:
+   \begin{enumerate}
+    \item Structuring documents
+    \item Writing mathematical equations
+   \end{enumerate}
+\end{itemize}
+
+We can also write unformatted text using \texttt{verbatim} environment, but sometimes we have to specify this in the preamble:
+\begin{verbatim}
+ \usepackage{verbatim}
+\end{verbatim}
+
+\begin{thebibliography}{99}
+ \bibitem{linux} Linux web site: \url{www.linux.com}
+ \bibitem{latex} Leslie Lamport, \textsl{LaTeX: A Document Preparation System}, second edition, Addision-Wesley (1994).
+\end{thebibliography}
+
+\end{document}
