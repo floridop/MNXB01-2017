@@ -1,0 +1,103 @@
+\documentclass[a4paper,12pt,twoside]{article}
+
+%\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+%\usepackage{babel}
+%\usepackage{fontenc}
+\usepackage[pdftex]{graphicx}
+
+\usepackage[pdftex]{hyperref}
+
+\author{Bromwel Rhoda Apondi}
+\title{Tutorial 2A Exercise paper}
+\date{09/14/17}
+
+\begin{document}
+\maketitle 
+\begin{center}
+ \texttt{Story of Bromwel's life}
+\end{center}
+
+\section{Introduction}
+\label{sec:intro}
+Apondi. Bromwel Apondi.
+This is an introduction. Summary will be given in Section \ref{sec:sum}
+
+\section{About Trump}
+\label{trump}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=7cm]{trump.png}
+    \caption{Corn symbolizes Trump}
+    \label{fig:trump}
+  \end{center}
+\end{figure}
+
+Figure \ref{fig:trump} shows trump and his brother Corn. For more details,check this page~\cite{trumpmeme}
+
+\subsection{Presidents}
+\label{sec:pres}
+
+Table~\ref{tab:pres} lists some of America's presidents~\footnote{They are not in order}.
+
+\begin{table}[h]
+\begin{center}
+ \caption{Different US presidents}
+ \label{tab:pres}
+\begin{tabular}{c|c|c|c} %| is for border, c is for centering
+ \textbf{Presidents}&Obama&Clinton&Bush\\ \hline \hline
+  &Carter&Ford&Kennedy\\ \hline
+\end{tabular}
+
+\end{center}
+
+\end{table}
+
+\section{About mathematics}
+\label{sec:math}
+
+In-line math in \LaTeX \ is enclosed in \$symbols. Backlash \textbackslash \ is used to denote special symboles.
+
+Subscripts and supersubscripts are always math: $A_x$ $A_{xy}$, $e^x$ and $e^{x^2}$. Using underscore \_ outside of math without \textbackslash causes big\_troubles.
+
+All special symboles are also math: $\alpha$, $\beta$, $\gamma$, $\delta$, $\sin, x$, $\hbar$, $\lambda$, $\ldots$.
+
+More can be found in Ref.~\footnote{A Docoment Preparation System(1994)}.
+
+Equation~\ref{eq:chi2} shows $\chi^2$.
+
+\begin{equation}
+ \label{eq:chi2}
+  \chi^2 = \sum\limits_i \left(\frac{F_i-D_i}{\sigma_i}\right)^2
+\end{equation}
+
+
+\section{Summary}
+\label{sec:sum}
+
+We learn that:
+\begin{itemize}
+ \item Linux is good
+ \item \LaTeX \ is good for:
+ \begin{enumerate}
+  \item Structuring documents
+  \item Writing mathematical equations
+  \item Creating tables about presidents
+ \end{enumerate}
+
+\end{itemize}
+
+We can also write unformatted text using \texttt{verbatim} enviroment, but sometimes we have to specify this in the premable:
+\begin{verbatim}
+ \usepackage{verbatim}
+\end{verbatim}
+
+
+\begin{thebibliography}{99}
+  \bibitem{trumpmeme} Meme website: \url{https://cbsnews1.cbsistatic.com/hub/i/r/2017/02/10/3ebc5ba8-a46c-4bc3-82a2-d060a0445724/crop/455x459+0+0/resize/620x465/64360f0876156abd6bcf80fe487663a6/screen-shot-2017-02-10-at-1-56-56-pm.png}
+  \bibitem{A Docoment Preparation System(1994)} Leslie Lamport
+\end{thebibliography}
+
+
+\end{document}
