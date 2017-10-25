@@ -1,0 +1,100 @@
+\documentclass[a4paper,10pt,twoside]{article}
+
+%\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+%\usepackage[UKenglish]{babel}
+\usepackage[pdftex]{graphicx}
+
+\usepackage[pdftex]{hyperref}
+
+\author{Mattias Åstrand}
+\title{Tutorial 2a exercise paper}
+\date{09/14/17}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+ \texttt{mattias.astrand98@gmail.com}
+\end{center}
+
+\section{Introduction}
+\label{sec:intro}
+This is an intro. A summary will be given in section \ref{sec:sum}.
+
+\section{About Linux}
+\label{sec:linux}
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=2cm]{Tux.png}
+  \caption{Tux is the mascotte of Linux.}
+  \label{fig:penguin}
+\end{center}
+\end{figure}
+
+Figure \ref{fig:penguin} shows a \textit{penguin}. For more details, check the Linux Web page~\cite{linux}.
+
+\subsection{Linux Flavours}
+\label{sec:Flavours}
+
+Table~\ref{tab:flavours} lists some Linux flavours~\footnote{Only one is shown for simplicity.}.
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{c|c|c|c}
+ 
+  \hline \hline \textbf{Distribution}&RedHat&Debian&SuSE\\ \hline
+	Fedora 20	&  X   &     &    \\ \hline \hline
+	
+ \end{tabular}
+ \caption{Different flavours of Linux}
+ \label{tab:flavours}
+\end{center}
+\end{table}
+
+\section{About Mathematics}
+\label{sec:math}
+
+In-line math in \LaTeX \ is enclosed in \ symbols. Backslash \textbackslash \ is used to denote special symbols.
+
+Subscripts and superscripts are always math: $A_x$, $A_{xy}$,
+$e^x$ and $e^{x^2}$. Using underscore \_ \ outside math without \textbackslash \ causes big\_troubles.
+
+All special symbols are also math: $\alpha$, $\beta$, $\gamma$, $\delta$, $\sin x$, $\hbar$, $\lambda$, $\ldots$ More information can be found in Ref.~\cite{latex}.
+
+Equation~\ref{eq:chi2} shows $\chi^2$.
+
+\begin{equation}
+ \label{eq:chi2}
+ \chi^2 = \sum\limits_i \left(\frac{F_i - D_i}{\sigma_i}\right)^2
+\end{equation}
+
+
+\section{Summary}
+\label{sec:sum}
+
+We learned the following:
+\begin{itemize}
+ \item Linux is your friend.
+ \item \LaTeX \ is good for:
+	\begin{enumerate}
+	 \item Structuring documents.
+	 \item Writing mathematical equations.
+	\end{enumerate}
+\end{itemize}
+
+We can also write unformatted text using \texttt{verbatim} environment, but sometimes we have to specify this in the preamble:
+\begin{verbatim}
+ \usepackage{verbatim}
+\end{verbatim}
+
+ 
+\begin{thebibliography}{99}
+ \bibitem{linux} Linux web site: \url{www.linux.com}
+ \bibitem{latex} Leslie Lamport, \textsl{LaTeX: A Document Preparation System}, second edition, Addison-Wesley (1994). 
+\end{thebibliography}
+
+ 
+\end{document}
