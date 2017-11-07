@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt,twoside]{article}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{caption,url,amsmath,bm}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage[numbers,square,comma]{natbib}
+\usepackage[pdftex]{hyperref}
+
+\author{Viktor Drugge}
+\title{Homework - Tutorial 2a}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+  \texttt{nat11vdr@student.lu.se}
+\end{center}
+
+\section{Introduction}
+\label{sec:intro}
+This is introduction. Summary should be given in Section \ref{sec:sum}.
+
+\section{About Linux}
+\label{sec:linux}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=2cm]{Tux.png}
+  \caption{Tux the Linux logotype.}
+  \label{fig:tux}
+\end{figure}
+Figure \ref{fig:tux} shows a \textit{penguine}. Fore more details, see the
+Linux Web Page at \cite{linux}.
+
+\subsection{Linux flavours}
+\label{sec:flavorflave}
+Table \ref{tab:flavorflave} lists some Linux flavours \footnote{Only one is
+  shown for simplicity}.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|c|c|c}
+    \textbf{Distribution} & RedHat & Debian & SuSE\\
+    \hline\hline
+    OpenSuSE 13.2 & & & X\\
+    \hline
+  \end{tabular}
+  \caption{Different flavours of Linux}
+  \label{tab:flavorflave}
+\end{table}
+
+\section{About mathematics}
+\label{sec:math}
+\LaTeX\ text and some math, more info can be found in reference \cite{latex}.
+\begin{equation}
+  \chi^2=\sum_i\left(\frac{F_i-D_i}{\sigma_i} \right)^2\label{eq:chi}
+\end{equation}
+Reference to equation \eqref{eq:chi}.
+\begin{verbatim}
+\usepackage{verbatim}
+Environment where latex does not interpret content.
+\end{verbatim}
+
+\section{Summary}
+\label{sec:sum}
+We learned the following:
+\begin{itemize}
+  \item Linux is good
+  \item \LaTeX\ is good for:
+    \begin{enumerate}
+      \item Structuring documents
+      \item Writing mathematical equations
+    \end{enumerate}
+\end{itemize}
+
+\section{References} %compile u/ pdflatex-bibtex-pdflatex-pdflatex
+\nocite{*}
+\begingroup
+\renewcommand{\section}[2]{} %Remove default ``Reference'' title
+\bibliography{Refs.bib}
+\endgroup
+\bibliographystyle{unsrtnat}
+\end{document}
