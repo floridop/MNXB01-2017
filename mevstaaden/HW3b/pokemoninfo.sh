@@ -9,8 +9,13 @@
 #
 ########################################################################
 
-# The script must take in input the directory where the database is stored.
-# Stores it in a variable called DBDIR.
+# The script must take in input as an argument the directory where the 
+# database is stored.
+# for example:
+#   ./pokemoninfo.sh dataset/
+# note that the name 'dataset' should not be hardcoded. It can be any directory
+# name. Make sure to read slides 33,34,39 
+# Store the folder name in a variable called DBDIR.
 DBDIR=$1
 
 # use this function to show an error message with usage information.
@@ -21,11 +26,19 @@ errormsg() {
 }
 
 ### Exercise 1: 1 points
-# Write an error and exit if no parameter exists or if the parameter is empty.
-# hint: use the if construct and the proper conditions to verify parameters
-# and directory existence.
+# Write an error and exit if no command line argument exists or if the argument
+# is empty (it could be a variable!)
+# hint: use the if construct and the proper conditions to verify the arguments
 
 # YOUR CODE HERE
+
+if [[ $# -le 0 ]]; then 
+	echo "Argument does not exist." ;
+	#exit with error
+	exit 1;
+else
+	echo "Argument valid." ;
+fi
 
 ### Exercise 2: 1 points
 # Write an error and exit if the DBDIR directory does not exist or it's not a directory.
@@ -33,6 +46,15 @@ errormsg() {
 
 # YOUR CODE HERE
 
+if [[ -d $DBDIR ]]; then
+	echo "Argument is a Directory.";
+else 
+	echo "Arugment is not a directory or does not exist." ;
+	#exit with error
+	exit 1;
+fi
+	
+	
 ### Exercise 3: 1 point
 # Use the grep command to find which file contains "Pokémon Red Version"
 # and output the results on screen.
@@ -41,10 +63,15 @@ errormsg() {
 echo -e "\nSearching for Pokémon Red..."
 # YOUR CODE HERE
 
+pokred=$(grep -nr "Pokémon Red Version" $DBDIR)
+echo "The file containing Pokémon Red Version is $pokred" 
+
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
 echo -e "\nRemoving old allplatforms.csv"
 # YOUR CODE HERE
+
+rm allplatforms.csv
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -61,6 +88,10 @@ echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
 
+for somefile in $DBDIR/*; do
+	read=$(tail -n+2 $somefile);
+	echo -e "$read" >> allplatforms.csv;
+done
 
 ### Exercise 4: 1 point
 # Sort the contents of the allplatforms.csv file by using the sort 
@@ -69,6 +100,7 @@ echo -e "\nCreating new allplatforms.csv"
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
 
+sort -t\" -k3 -o allplatforms.ordered.csv allplatforms.csv
 
 
 # Exercise 5: 4 points
@@ -89,5 +121,12 @@ echo -e "\nSorting allplatforms.csv..."
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
+
+for afile in $DBDIR/*; do 
+	NumofGames=$(tail -n+2 $afile|wc -l);
+	filename=$( basename $afile );
+	
+	echo -e "$filename has $NumofGames game(s) \n" 
+done
 
 exit 0;

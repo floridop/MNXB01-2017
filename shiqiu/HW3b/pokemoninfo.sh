@@ -9,8 +9,13 @@
 #
 ########################################################################
 
-# The script must take in input the directory where the database is stored.
-# Stores it in a variable called DBDIR.
+# The script must take in input as an argument the directory where the 
+# database is stored.
+# for example:
+#   ./pokemoninfo.sh dataset/
+# note that the name 'dataset' should not be hardcoded. It can be any directory
+# name. Make sure to read slides 33,34,39 
+# Store the folder name in a variable called DBDIR.
 DBDIR=$1
 
 # use this function to show an error message with usage information.
@@ -21,17 +26,29 @@ errormsg() {
 }
 
 ### Exercise 1: 1 points
-# Write an error and exit if no parameter exists or if the parameter is empty.
-# hint: use the if construct and the proper conditions to verify parameters
-# and directory existence.
+# Write an error and exit if no command line argument exists or if the argument
+# is empty (it could be a variable!)
+# hint: use the if construct and the proper conditions to verify the arguments
 
 # YOUR CODE HERE
+# put an arbitrary letter or string, "x" here, before the argument in order to avoid " " == " "
+if [ "x$DBDIR" == "x" ]; then
+     echo "No command line argument found. "
+     exit 1
+fi
 
 ### Exercise 2: 1 points
 # Write an error and exit if the DBDIR directory does not exist or it's not a directory.
 # Hint: read http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
 
 # YOUR CODE HERE
+# -d stands of testing if the input argument is a directory
+if [ -d "$DBDIR" ]; then
+     echo "The $DBDIR directory is a directory. "
+else
+     echo "The $DBDIR directory does not exist or it's not a directory. "
+     exit 1
+fi
 
 ### Exercise 3: 1 point
 # Use the grep command to find which file contains "Pokémon Red Version"
@@ -41,10 +58,26 @@ errormsg() {
 echo -e "\nSearching for Pokémon Red..."
 # YOUR CODE HERE
 
+# -H prints the file name (not necessary for searching multiple files, since it is the default setting)
+# -r does a recursive search
+# -n prints the line number
+# --color assigns colors to different elements in the search results
+grep -H -r -n --color 'Pokémon Red Version' $DBDIR/*.csv
+
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
 echo -e "\nRemoving old allplatforms.csv"
 # YOUR CODE HERE
+
+# Delete "allplatforms.csv" in the current directory where the code runs
+# Test if allplatforms.csv exists in the current directory
+if [ -e allplatforms.csv ]; then
+    rm allplatforms.csv
+    echo "allplatforms.csv has been removed"
+else
+    echo "allplatforms.csv doesn't exist"
+fi
+
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -60,7 +93,11 @@ echo -e "\nRemoving old allplatforms.csv"
 echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
-
+for data in "$DBDIR"/*.csv; do
+# Use tail to remove the first row
+tail -n +2 $data >> allplatforms.csv
+done
+echo "New allplatforms.csv successfully created"
 
 ### Exercise 4: 1 point
 # Sort the contents of the allplatforms.csv file by using the sort 
@@ -68,8 +105,11 @@ echo -e "\nCreating new allplatforms.csv"
 # Hint: use \" as a delimiter for sort. Check 'man sort'
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
-
-
+# Remove potentially pre-existing allplatforms.ordered.csv
+rm allplatforms.ordered.csv
+# Sort the csv based on the second collumn, denoted by -k2, and set the field 
+# separater as "," using "-t,". The default sorting is based on alphabetical order.
+sort -t, -k2 allplatforms.csv >> allplatforms.ordered.csv
 
 # Exercise 5: 4 points
 # Write a for loop that, for each file, counts all the games
@@ -89,5 +129,12 @@ echo -e "\nSorting allplatforms.csv..."
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
-
+# Iterate through each csv file in the DBDIR
+for data in "$DBDIR"/*.csv; do
+# Use tail to cut the first row and then use wc -l to count the number of lines/rows. 
+# Pass the result to variable NofGames.
+NofGames="$(tail -n +2 $data | wc -l )"
+# Output results 
+echo -e "$(basename "$data") has $NofGames game(s)\n" 
+done
 exit 0;
