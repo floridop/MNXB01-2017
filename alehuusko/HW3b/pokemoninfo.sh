@@ -32,11 +32,33 @@ errormsg() {
 
 # YOUR CODE HERE
 
+if  [[ $# -eq 0 ]]; then
+	echo "Not enough arguments. Must be at least 1!";
+    exit 1;
+fi
+
+if [ -z "$1" ]; then
+    echo "Empty argument!"
+    exit 1;
+fi
+
+
 ### Exercise 2: 1 points
 # Write an error and exit if the DBDIR directory does not exist or it's not a directory.
 # Hint: read http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
 
 # YOUR CODE HERE
+
+if [ ! -e "$DBDIR" ]; then
+	echo "Argument does not exist!";
+	exit 1;
+fi
+
+if [ ! -d "$DBDIR" ]; then
+	echo "Argument is not a directory!";
+	exit 1;
+fi
+
 
 ### Exercise 3: 1 point
 # Use the grep command to find which file contains "Pokémon Red Version"
@@ -46,10 +68,22 @@ errormsg() {
 echo -e "\nSearching for Pokémon Red..."
 # YOUR CODE HERE
 
+grep "Pokémon Red Version" $DBDIR*
+
+
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
 echo -e "\nRemoving old allplatforms.csv"
 # YOUR CODE HERE
+
+if [ -e allplatforms.csv ]; then
+	rm allplatforms.csv
+fi
+
+if [ -e allplatforms.ordered.csv ]; then
+	rm allplatforms.ordered.csv;
+fi
+
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -66,6 +100,10 @@ echo -e "\nCreating new allplatforms.csv"
 
 # YOUR FOR LOOP HERE
 
+for f in $DBDIR*; do
+	tail -n +2 $f >> allplatforms.csv
+done
+
 
 ### Exercise 4: 1 point
 # Sort the contents of the allplatforms.csv file by using the sort 
@@ -74,6 +112,7 @@ echo -e "\nCreating new allplatforms.csv"
 echo -e "\nSorting allplatforms.csv..."
 # YOUR CODE HERE
 
+sort -t, -k2 allplatforms.csv > allplatforms.ordered.csv
 
 
 # Exercise 5: 4 points
@@ -94,5 +133,12 @@ echo -e "\nSorting allplatforms.csv..."
 echo -e "\nCalculating number of games for each file..."
 
 #YOUR CODE HERE
+
+for f in $DBDIR*; do
+	GAMES=$(tail -n +2 $f | wc -l)
+	NAME=$(basename $f)
+	echo $NAME" has " $GAMES" game(s)"
+done
+
 
 exit 0;

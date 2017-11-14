@@ -30,13 +30,20 @@ errormsg() {
 # is empty (it could be a variable!)
 # hint: use the if construct and the proper conditions to verify the arguments
 
-# YOUR CODE HERE
+if [[ $# -le 0 ]]; then
+	errormsg;
+	exit 1;
+fi
+
 
 ### Exercise 2: 1 points
 # Write an error and exit if the DBDIR directory does not exist or it's not a directory.
 # Hint: read http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
 
-# YOUR CODE HERE
+if [[ ! -d $1 ]]; then
+	errormsg;
+	exit 1;
+fi
 
 ### Exercise 3: 1 point
 # Use the grep command to find which file contains "Pokémon Red Version"
@@ -44,12 +51,14 @@ errormsg() {
 # grep examples: http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_02.html
 
 echo -e "\nSearching for Pokémon Red..."
-# YOUR CODE HERE
+
+grep "Pokémon Red Version" $1/*; 
 
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
 echo -e "\nRemoving old allplatforms.csv"
-# YOUR CODE HERE
+
+rm "allplatforms.csv";
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -64,7 +73,9 @@ echo -e "\nRemoving old allplatforms.csv"
 # create allplatforms file with a for loop
 echo -e "\nCreating new allplatforms.csv"
 
-# YOUR FOR LOOP HERE
+for i in $1/*; do
+tail -n +2 $i >> allplatforms.csv;
+done
 
 
 ### Exercise 4: 1 point
@@ -72,9 +83,8 @@ echo -e "\nCreating new allplatforms.csv"
 # command and write the result in allplatforms.ordered.csv
 # Hint: use \" as a delimiter for sort. Check 'man sort'
 echo -e "\nSorting allplatforms.csv..."
-# YOUR CODE HERE
 
-
+sort -k2 allplatforms.csv -o allplatforms.ordered.csv;
 
 # Exercise 5: 4 points
 # Write a for loop that, for each file, counts all the games
@@ -93,6 +103,10 @@ echo -e "\nSorting allplatforms.csv..."
 # poke.iOS.csv has 1 game(s)
 echo -e "\nCalculating number of games for each file..."
 
-#YOUR CODE HERE
+for i in $1/*; do
+n=$(cat $i | tail -n +2 | wc -l);
+NAME=$(basename $i);
+echo $NAME "has" $n "game(s)";
+done
 
 exit 0;

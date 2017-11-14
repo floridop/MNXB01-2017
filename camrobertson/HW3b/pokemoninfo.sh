@@ -30,26 +30,43 @@ errormsg() {
 # is empty (it could be a variable!)
 # hint: use the if construct and the proper conditions to verify the arguments
 
-# YOUR CODE HERE
+# Error if no argument is entered. Exercise 2 accounts for if the input is not a directory
+if [[ $# -le 0 ]] ; then
+echo "No argument, please input the directory database"
+exit 1
+fi
 
 ### Exercise 2: 1 points
 # Write an error and exit if the DBDIR directory does not exist or it's not a directory.
 # Hint: read http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html
 
-# YOUR CODE HERE
+# Testing whether DBDIR is a directory
+if [ -d $DBDIR ]
+then echo "Thank you, this is a directory"
+# Exit if it is not a directory
+else echo "This does not exist, or is not a directory"
+exit 1
+fi
+
+
 
 ### Exercise 3: 1 point
 # Use the grep command to find which file contains "Pokémon Red Version"
 # and output the results on screen.
 # grep examples: http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_02.html
 
-echo -e "\nSearching for Pokémon Red..."
-# YOUR CODE HERE
+echo -e "\nsearching for Pokémon Red..."
+
+#Appropriate grep command for find file with this line
+grep -r -H "Pokémon Red Version" $DBDIR
 
 ### Exercise 4: 1 point
 # delete existing allplatform.csv file in preparation of the next exercise
 echo -e "\nRemoving old allplatforms.csv"
-# YOUR CODE HERE
+
+#Easier to remove allplatforms.csv.ordered as well for debugging
+rm $DBDIR/allplatforms.csv
+rm $DBDIR/allplatforms.ordered.csv
 
 ### Exercise 5: 3 points
 # Write a for loop that takes every file in the database and puts it 
@@ -64,7 +81,14 @@ echo -e "\nRemoving old allplatforms.csv"
 # create allplatforms file with a for loop
 echo -e "\nCreating new allplatforms.csv"
 
-# YOUR FOR LOOP HERE
+# For loop to cycle through every file in DBDIR
+
+for f in $DBDIR/*; do
+
+# Tail command to miss header line in each file, then write this to new file
+
+tail -n +2 $f >> $DBDIR/allplatforms.csv;
+done
 
 
 ### Exercise 4: 1 point
@@ -72,7 +96,10 @@ echo -e "\nCreating new allplatforms.csv"
 # command and write the result in allplatforms.ordered.csv
 # Hint: use \" as a delimiter for sort. Check 'man sort'
 echo -e "\nSorting allplatforms.csv..."
-# YOUR CODE HERE
+
+#contents sorted alphanumerically
+
+sort -d $DBDIR/allplatforms.csv > $DBDIR/allplatforms.ordered.csv 
 
 
 
@@ -93,6 +120,29 @@ echo -e "\nSorting allplatforms.csv..."
 # poke.iOS.csv has 1 game(s)
 echo -e "\nCalculating number of games for each file..."
 
-#YOUR CODE HERE
+# Again, for loop to cycle through each file in DBDIR
+
+for files in $DBDIR/*; do
+
+# Function to remove directory part of filename
+
+fbname=$(basename "$files" .csv)
+
+# Function to again remove headers, and count new lines (games) in each file
+
+lines=$(tail -n +2 $files | wc -l) 
+
+# Final output using above two functions
+
+echo "$fbname has $lines games"
+
+# I am aware that there is an error here
+# as the top lines of the allplatforms files
+# will also be deleted. I was unsure of how to
+# correct for this
+
+
+
+done
 
 exit 0;
