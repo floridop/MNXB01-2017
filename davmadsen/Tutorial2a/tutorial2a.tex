@@ -1,0 +1,108 @@
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{titletoc}
+\usepackage{lipsum}
+\usepackage{float}
+% \usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{hyperref}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[font={small,it}]{caption}
+\usepackage{float}
+
+\author{David}
+\title{Hi}
+\date{2015-11-11}
+\begin{document}
+\maketitle
+\section{Introduction}
+This is introduction. Summery will be given in section 
+
+
+\section{about Linux}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.2]{../../Downloads/keep-calm-and-use-linux_o_760600.jpg} 
+\caption{This is a meme \cite{meme}}
+\label{linux}
+\end{center}
+\end{figure}
+
+
+figure \ref{linux} shows a meme I found here here \cite{meme}
+
+\subsection{This is a table}
+
+Table \ref{stuff} shows a table \footnote{This is a footnote}.
+
+\begin{table}[H]
+	\centering
+	 \caption{Here you can write a caption}
+    \begin{tabular}{|c|c|c|}\hline
+    \label{stuff} 
+    You can write things here & here & and also here\\\hline
+    \end{tabular}  
+        
+\end{table}
+
+\section{Math}
+in \LaTeX \ you can also write equations and formulas, not just text!
+Equation \ref{xi} shows a varible $\xi$ and $z$.
+
+\begin{equation}
+\xi = ln\left( \frac{1}{z} \right) \text{ ; } z= \frac{p^{track}_{||}}{p^{jet}}
+\label{xi}
+\end{equation}
+
+
+\section{Summary}
+
+We have learnt the following:
+\begin{itemize}
+\item Linux is good for you
+\item \LaTeX \ is good for:
+	\begin{enumerate}
+	\item things
+	\item other things
+	\end{enumerate}
+\end{itemize}
+
+we can also write unformatted text using verbatim enviroment, but sometimes we have to specify this in the preamble:
+
+\begin{verbatim}
+	\usepackage{verbatim}
+\end{verbatim}
+
+
+
+
+
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{meme} 
+	\url{https://img.memecdn.com/keep-calm-and-use-linux_o_760600.jpg}
+  
+
+\end{thebibliography}
+
+
+
+
+
+
+\end{document}
+
